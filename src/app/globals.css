@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-display: var(--font-yatra);
+  --font-sans: var(--font-hind);
+}
+
+/* Diwali night palette: marigold, saffron and rani pink over indigo sky. */
+@theme {
+  --color-night: #0b0619;
+  --color-plum: #160d2b;
+  --color-plum-2: #221539;
+  --color-plum-3: #2e1d4b;
+  --color-marigold: #ffb627;
+  --color-saffron: #ff7a1a;
+  --color-rani: #e8457a;
+  --color-cream: #f6ecd9;
+  --color-ink: #1d1206;
+}
+
+/* In the base layer so utilities like focus:outline-none can override them. */
+@layer base {
+  html,
+  body {
+    background: var(--color-night);
+    color: var(--color-cream);
+    overscroll-behavior: none;
+    /* Phones otherwise flash a dark box over tapped buttons; controls have their own press feedback. */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-marigold);
+    outline-offset: 2px;
+  }
+
+  /* Thin, dark scrollbars that match the night theme. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(246, 236, 217, 0.22) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(246, 236, 217, 0.22);
+    border: 2px solid transparent;
+    border-radius: 9999px;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(246, 236, 217, 0.4);
+  }
+  ::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+/* Range slider (components/Slider.tsx). --fill is the filled percentage. */
+@layer components {
+  .slider {
+    appearance: none;
+    height: 22px;
+    background: transparent;
+    cursor: pointer;
+    touch-action: pan-y;
+  }
+  .slider:focus-visible {
+    outline: none;
+  }
+
+  .slider::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 9999px;
+    background: linear-gradient(to right, var(--color-saffron), var(--color-marigold) var(--fill), rgba(246, 236, 217, 0.14) var(--fill));
+  }
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    margin-top: -6px;
+    border-radius: 9999px;
+    background: var(--color-cream);
+    box-shadow:
+      0 0 0 4px rgba(255, 182, 39, 0.22),
+      0 2px 6px rgba(0, 0, 0, 0.45);
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  .slider:hover::-webkit-slider-thumb {
+    box-shadow:
+      0 0 0 6px rgba(255, 182, 39, 0.28),
+      0 2px 6px rgba(0, 0, 0, 0.45);
+  }
+  .slider:active::-webkit-slider-thumb {
+    transform: scale(1.12);
+  }
+  .slider:focus-visible::-webkit-slider-thumb {
+    box-shadow:
+      0 0 0 3px var(--color-night),
+      0 0 0 5px var(--color-marigold);
+  }
+
+  .slider::-moz-range-track {
+    height: 6px;
+    border-radius: 9999px;
+    background: rgba(246, 236, 217, 0.14);
+  }
+  .slider::-moz-range-progress {
+    height: 6px;
+    border-radius: 9999px;
+    background: linear-gradient(to right, var(--color-saffron), var(--color-marigold));
+  }
+  .slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: 9999px;
+    background: var(--color-cream);
+    box-shadow:
+      0 0 0 4px rgba(255, 182, 39, 0.22),
+      0 2px 6px rgba(0, 0, 0, 0.45);
+  }
+  .slider:focus-visible::-moz-range-thumb {
+    box-shadow:
+      0 0 0 3px var(--color-night),
+      0 0 0 5px var(--color-marigold);
+  }
+}
